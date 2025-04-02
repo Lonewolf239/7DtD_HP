@@ -71,7 +71,7 @@ namespace _7DtD_HP
         {
             zombie_icon.Image = Zombies[zombie_list.SelectedIndex].Icon;
             hp_default.Text = $"Default: {Zombies[zombie_list.SelectedIndex].DefaultHealthMax}";
-            resist_default.Text = $"Default: {Zombies[zombie_list.SelectedIndex].DefaultHealthMax}";
+            resist_default.Text = $"Default: {Zombies[zombie_list.SelectedIndex].DefaultPhysicalDamageResist}";
             zombie_resist.Enabled = Zombies[zombie_list.SelectedIndex].HasPhysicalDamageResist;
             try
             {
