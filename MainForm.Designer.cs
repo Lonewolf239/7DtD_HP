@@ -77,7 +77,7 @@
             this.zombie_icon.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.zombie_icon.Location = new System.Drawing.Point(3, 3);
             this.zombie_icon.Name = "zombie_icon";
-            this.zombie_icon.Size = new System.Drawing.Size(200, 200);
+            this.zombie_icon.Size = new System.Drawing.Size(200, 273);
             this.zombie_icon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.zombie_icon.TabIndex = 0;
             this.zombie_icon.TabStop = false;
@@ -321,7 +321,7 @@
             // version
             // 
             this.version.AutoSize = true;
-            this.version.Cursor = System.Windows.Forms.Cursors.Help;
+            this.version.Cursor = System.Windows.Forms.Cursors.Default;
             this.version.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.version.ForeColor = System.Drawing.Color.White;
             this.version.Location = new System.Drawing.Point(630, 279);
@@ -335,10 +335,11 @@
             // 
             this.devolp.AutoSize = true;
             this.devolp.Cursor = System.Windows.Forms.Cursors.Help;
+            this.devolp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.devolp.ForeColor = System.Drawing.Color.White;
-            this.devolp.Location = new System.Drawing.Point(3, 273);
+            this.devolp.Location = new System.Drawing.Point(-1, 277);
             this.devolp.Name = "devolp";
-            this.devolp.Size = new System.Drawing.Size(147, 24);
+            this.devolp.Size = new System.Drawing.Size(126, 20);
             this.devolp.TabIndex = 13;
             this.devolp.Text = "By. Lonewolf239";
             this.devolp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
