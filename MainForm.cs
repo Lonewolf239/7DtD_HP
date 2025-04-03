@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using _7DtD_HP.Classes;
 using System.Reflection;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -13,6 +12,7 @@ namespace _7DtD_HP
     public partial class MainForm : Form
     {
         private readonly Zombie[] Zombies;
+        private Zombie Zombie => Zombies[zombie_list.SelectedIndex];
 
         private void Devolp_MouseClick(object sender, MouseEventArgs e) { if (e.Button == MouseButtons.Left) Process.Start(new ProcessStartInfo("https://github.com/Lonewolf239") { UseShellExecute = true }); }
 
@@ -33,28 +33,6 @@ namespace _7DtD_HP
             zombie_list.SelectedIndex = 0;
         }
 
-        private void SaveConfig()
-        {
-            try
-            {
-                string[] lines = File.ReadAllLines("entityclasses.xml");
-                foreach (var zombie in Zombies)
-                {
-                    lines[zombie.HealthMaxLineIndex - 1] = $"\t\t<passive_effect name=\"HealthMax\" operation=\"base_set\" value=\"{zombie.HealthMax}\"/>";
-                    if (zombie.HasPhysicalDamageResist) lines[zombie.PhysicalDamageResistLineIndex - 1] = $"\t\t<passive_effect name=\"PhysicalDamageResist\" operation=\"base_set\" value=\"{zombie.PhysicalDamageResist}\"/>";
-                }
-                File.WriteAllLines("entityclasses.xml", lines);
-            }
-            catch
-            {
-                if (File.Exists("entityclasses.xml")) File.Delete("entityclasses.xml");
-                MessageBox.Show("The entityclasses.xml file is corrupted! Please copy the new file from the game folder (7 Days To Die\\Data\\Config) to the same folder as 7DtD_HP.exe",
-                    "The entityclasses.xml file is corrupted!",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
-        }
-
         private void Zombie_list_SelectedIndexChanged(object sender, EventArgs e) => UpdateInfo();
 
         private void ToDefault()
@@ -67,39 +45,11 @@ namespace _7DtD_HP
             UpdateInfo();
         }
 
-        private void UpdateInfo()
-        {
-            zombie_icon.Image = Zombies[zombie_list.SelectedIndex].Icon;
-            hp_default.Text = $"Default: {Zombies[zombie_list.SelectedIndex].DefaultHealthMax}";
-            resist_default.Text = $"Default: {Zombies[zombie_list.SelectedIndex].DefaultPhysicalDamageResist}";
-            zombie_resist.Enabled = Zombies[zombie_list.SelectedIndex].HasPhysicalDamageResist;
-            try
-            {
-                zombie_hp.Value = Zombies[zombie_list.SelectedIndex].HealthMax;
-                zombie_resist.Value = Zombies[zombie_list.SelectedIndex].PhysicalDamageResist;
-            }
-            catch
-            {
-                zombie_hp.Value = Zombies[zombie_list.SelectedIndex].DefaultHealthMax;
-                zombie_resist.Value = Zombies[zombie_list.SelectedIndex].DefaultPhysicalDamageResist;
-            }
-        }
-
-        private void Zombie_hp_ValueChanged(object sender, EventArgs e) => Zombies[zombie_list.SelectedIndex].HealthMax = (int)zombie_hp.Value;
-
-        private void Zombie_resist_ValueChanged(object sender, EventArgs e) => Zombies[zombie_list.SelectedIndex].PhysicalDamageResist = (int)zombie_resist.Value;
-
-        private void Default_btn_Click(object sender, EventArgs e) => ToDefault();
-
-        private void Save_btn_Click(object sender, EventArgs e) => SaveConfig();
-
-        private void Apply_btn_Click(object sender, EventArgs e) => saveDialog.ShowDialog();
-
-        private void Load_btn_Click(object sender, EventArgs e)
+        private void LoadConfig()
         {
             try
             {
-                string[] lines = File.ReadAllLines("entityclasses.xml");
+                string[] lines = File.ReadAllLines(Program.ECFile);
                 const string hpPattern = @"\d+";
                 const string resistPattern = @"\d+";
                 foreach (var zombie in Zombies)
@@ -118,17 +68,78 @@ namespace _7DtD_HP
             catch
             {
                 ToDefault();
-                if (File.Exists("entityclasses.xml")) File.Delete("entityclasses.xml");
-                MessageBox.Show("The entityclasses.xml file is corrupted! Please copy the new file from the game folder (7 Days To Die\\Data\\Config) to the same folder as 7DtD_HP.exe",
-                    "The entityclasses.xml file is corrupted!",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                if (File.Exists(Program.ECFile)) File.Delete(Program.ECFile);
+                MessageBox.Show("The entityclasses.xml file is corrupted! Please verify your game files through Steam to resolve the issue.",
+                                "Entityclasses.xml Corrupted",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
             }
+        }
+
+        private void UpdateInfo()
+        {
+            zombie_icon.BackgroundImage = Zombie.Icon;
+            if (Zombie.Type == Zombie.ZombieType.Feral) zombie_icon.Image = Properties.Resources.feral;
+            else if (Zombie.Type == Zombie.ZombieType.Radiated) zombie_icon.Image = Properties.Resources.radiated;
+            else zombie_icon.Image = null;
+            hp_default.Text = $"Default: {Zombie.DefaultHealthMax}";
+            resist_default.Text = $"Default: {Zombie.DefaultPhysicalDamageResist}";
+            zombie_resist.Enabled = Zombie.HasPhysicalDamageResist;
+            try
+            {
+                zombie_hp.Value = Zombie.HealthMax;
+                zombie_resist.Value = Zombie.PhysicalDamageResist;
+            }
+            catch
+            {
+                zombie_hp.Value = Zombie.DefaultHealthMax;
+                zombie_resist.Value = Zombie.DefaultPhysicalDamageResist;
+            }
+        }
+
+        private void Zombie_hp_ValueChanged(object sender, EventArgs e) => Zombie.HealthMax = (int)zombie_hp.Value;
+
+        private void Zombie_resist_ValueChanged(object sender, EventArgs e) => Zombie.PhysicalDamageResist = (int)zombie_resist.Value;
+
+        private void Default_btn_Click(object sender, EventArgs e)
+        {
+            zombie_panel.Focus();
+            ToDefault();
+        }
+
+        private void Apply_btn_Click(object sender, EventArgs e)
+        {
+            zombie_panel.Focus();
+            try
+            {
+                string[] lines = File.ReadAllLines(Program.ECFile);
+                foreach (var zombie in Zombies)
+                {
+                    lines[zombie.HealthMaxLineIndex - 1] = $"\t\t<passive_effect name=\"HealthMax\" operation=\"base_set\" value=\"{zombie.HealthMax}\"/>";
+                    if (zombie.HasPhysicalDamageResist) lines[zombie.PhysicalDamageResistLineIndex - 1] = $"\t\t<passive_effect name=\"PhysicalDamageResist\" operation=\"base_set\" value=\"{zombie.PhysicalDamageResist}\"/>";
+                }
+                File.WriteAllLines(Program.ECFile, lines);
+            }
+            catch
+            {
+                if (File.Exists(Program.ECFile)) File.Delete(Program.ECFile);
+                MessageBox.Show("The entityclasses.xml file is corrupted! Please verify your game files through Steam to resolve the issue.",
+                                "Entityclasses.xml Corrupted",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+        }
+
+        private void Load_btn_Click(object sender, EventArgs e)
+        {
+            zombie_panel.Focus();
+            LoadConfig();
             UpdateInfo();
         }
 
         private void Rand_hp_btn_Click(object sender, EventArgs e)
         {
+            zombie_panel.Focus();
             int min = (int)Math.Min(min_hp_value.Value, max_hp_value.Value);
             int max = (int)Math.Max(min_hp_value.Value, max_hp_value.Value);
             min_hp_value.Value = min;
@@ -148,6 +159,7 @@ namespace _7DtD_HP
 
         private void Rand_resist_btn_Click(object sender, EventArgs e)
         {
+            zombie_panel.Focus();
             int min = (int)Math.Min(min_resist_value.Value, max_resist_value.Value);
             int max = (int)Math.Max(min_resist_value.Value, max_resist_value.Value);
             min_resist_value.Value = min;
@@ -165,11 +177,16 @@ namespace _7DtD_HP
             UpdateInfo();
         }
 
-        private void SaveDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Backup_btn_Click(object sender, EventArgs e)
         {
-            if (File.Exists(saveDialog.FileName)) File.Delete(saveDialog.FileName);
-            SaveConfig();
-            File.Copy("entityclasses.xml", saveDialog.FileName);
+            zombie_panel.Focus();
+            if (File.Exists(Program.BECFile))
+            {
+                if (File.Exists(Program.ECFile)) File.Delete(Program.ECFile);
+                File.Copy(Program.BECFile, Program.ECFile);
+            }
+            LoadConfig();
+            UpdateInfo();
         }
     }
 }

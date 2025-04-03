@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.zombie_icon = new System.Windows.Forms.PictureBox();
             this.zombie_panel = new System.Windows.Forms.Panel();
+            this.backup_btn = new System.Windows.Forms.Button();
             this.resist_rand_box = new System.Windows.Forms.GroupBox();
             this.rand_resist_btn = new System.Windows.Forms.Button();
             this.max_resist_value = new System.Windows.Forms.NumericUpDown();
@@ -53,13 +54,11 @@
             this.apply_btn = new System.Windows.Forms.Button();
             this.default_btn = new System.Windows.Forms.Button();
             this.zombie_resist = new System.Windows.Forms.NumericUpDown();
-            this.save_btn = new System.Windows.Forms.Button();
             this.resist_title = new System.Windows.Forms.Label();
             this.zombie_hp = new System.Windows.Forms.NumericUpDown();
             this.hp_title = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.zombie_list = new System.Windows.Forms.ComboBox();
-            this.saveDialog = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.zombie_icon)).BeginInit();
             this.zombie_panel.SuspendLayout();
             this.resist_rand_box.SuspendLayout();
@@ -74,6 +73,7 @@
             // 
             // zombie_icon
             // 
+            this.zombie_icon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.zombie_icon.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.zombie_icon.Location = new System.Drawing.Point(3, 3);
             this.zombie_icon.Name = "zombie_icon";
@@ -85,6 +85,7 @@
             // zombie_panel
             // 
             this.zombie_panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.zombie_panel.Controls.Add(this.backup_btn);
             this.zombie_panel.Controls.Add(this.resist_rand_box);
             this.zombie_panel.Controls.Add(this.hp_rand_box);
             this.zombie_panel.Controls.Add(this.version);
@@ -95,7 +96,6 @@
             this.zombie_panel.Controls.Add(this.apply_btn);
             this.zombie_panel.Controls.Add(this.default_btn);
             this.zombie_panel.Controls.Add(this.zombie_resist);
-            this.zombie_panel.Controls.Add(this.save_btn);
             this.zombie_panel.Controls.Add(this.resist_title);
             this.zombie_panel.Controls.Add(this.zombie_hp);
             this.zombie_panel.Controls.Add(this.hp_title);
@@ -106,6 +106,19 @@
             this.zombie_panel.Name = "zombie_panel";
             this.zombie_panel.Size = new System.Drawing.Size(666, 299);
             this.zombie_panel.TabIndex = 1;
+            // 
+            // backup_btn
+            // 
+            this.backup_btn.AutoSize = true;
+            this.backup_btn.ForeColor = System.Drawing.Color.White;
+            this.backup_btn.Location = new System.Drawing.Point(212, 242);
+            this.backup_btn.Name = "backup_btn";
+            this.backup_btn.Size = new System.Drawing.Size(103, 34);
+            this.backup_btn.TabIndex = 18;
+            this.backup_btn.TabStop = false;
+            this.backup_btn.Text = "Backup";
+            this.backup_btn.UseVisualStyleBackColor = false;
+            this.backup_btn.Click += new System.EventHandler(this.Backup_btn_Click);
             // 
             // resist_rand_box
             // 
@@ -130,6 +143,7 @@
             this.rand_resist_btn.Name = "rand_resist_btn";
             this.rand_resist_btn.Size = new System.Drawing.Size(100, 34);
             this.rand_resist_btn.TabIndex = 20;
+            this.rand_resist_btn.TabStop = false;
             this.rand_resist_btn.Text = "Randomize";
             this.rand_resist_btn.UseVisualStyleBackColor = false;
             this.rand_resist_btn.Click += new System.EventHandler(this.Rand_resist_btn_Click);
@@ -148,6 +162,7 @@
             this.max_resist_value.Name = "max_resist_value";
             this.max_resist_value.Size = new System.Drawing.Size(51, 22);
             this.max_resist_value.TabIndex = 19;
+            this.max_resist_value.TabStop = false;
             this.max_resist_value.Value = new decimal(new int[] {
             120,
             0,
@@ -168,6 +183,7 @@
             this.min_resist_value.Name = "min_resist_value";
             this.min_resist_value.Size = new System.Drawing.Size(51, 22);
             this.min_resist_value.TabIndex = 18;
+            this.min_resist_value.TabStop = false;
             // 
             // max_resist_title
             // 
@@ -228,6 +244,7 @@
             this.rand_hp_btn.Name = "rand_hp_btn";
             this.rand_hp_btn.Size = new System.Drawing.Size(100, 34);
             this.rand_hp_btn.TabIndex = 20;
+            this.rand_hp_btn.TabStop = false;
             this.rand_hp_btn.Text = "Randomize";
             this.rand_hp_btn.UseVisualStyleBackColor = false;
             this.rand_hp_btn.Click += new System.EventHandler(this.Rand_hp_btn_Click);
@@ -251,6 +268,7 @@
             this.max_hp_value.Name = "max_hp_value";
             this.max_hp_value.Size = new System.Drawing.Size(51, 22);
             this.max_hp_value.TabIndex = 19;
+            this.max_hp_value.TabStop = false;
             this.max_hp_value.Value = new decimal(new int[] {
             350,
             0,
@@ -276,6 +294,7 @@
             this.min_hp_value.Name = "min_hp_value";
             this.min_hp_value.Size = new System.Drawing.Size(51, 22);
             this.min_hp_value.TabIndex = 18;
+            this.min_hp_value.TabStop = false;
             this.min_hp_value.Value = new decimal(new int[] {
             150,
             0,
@@ -328,7 +347,7 @@
             this.version.Name = "version";
             this.version.Size = new System.Drawing.Size(31, 16);
             this.version.TabIndex = 14;
-            this.version.Text = "v0.1";
+            this.version.Text = "v0.2";
             this.version.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // devolp
@@ -360,10 +379,11 @@
             // 
             this.load_btn.AutoSize = true;
             this.load_btn.ForeColor = System.Drawing.Color.White;
-            this.load_btn.Location = new System.Drawing.Point(212, 242);
+            this.load_btn.Location = new System.Drawing.Point(321, 242);
             this.load_btn.Name = "load_btn";
             this.load_btn.Size = new System.Drawing.Size(103, 34);
             this.load_btn.TabIndex = 12;
+            this.load_btn.TabStop = false;
             this.load_btn.Text = "Load";
             this.load_btn.UseVisualStyleBackColor = false;
             this.load_btn.Click += new System.EventHandler(this.Load_btn_Click);
@@ -387,6 +407,7 @@
             this.apply_btn.Name = "apply_btn";
             this.apply_btn.Size = new System.Drawing.Size(103, 34);
             this.apply_btn.TabIndex = 11;
+            this.apply_btn.TabStop = false;
             this.apply_btn.Text = "Apply";
             this.apply_btn.UseVisualStyleBackColor = false;
             this.apply_btn.Click += new System.EventHandler(this.Apply_btn_Click);
@@ -395,10 +416,11 @@
             // 
             this.default_btn.AutoSize = true;
             this.default_btn.ForeColor = System.Drawing.Color.White;
-            this.default_btn.Location = new System.Drawing.Point(321, 242);
+            this.default_btn.Location = new System.Drawing.Point(430, 242);
             this.default_btn.Name = "default_btn";
             this.default_btn.Size = new System.Drawing.Size(103, 34);
             this.default_btn.TabIndex = 9;
+            this.default_btn.TabStop = false;
             this.default_btn.Text = "To default";
             this.default_btn.UseVisualStyleBackColor = false;
             this.default_btn.Click += new System.EventHandler(this.Default_btn_Click);
@@ -416,24 +438,13 @@
             this.zombie_resist.Name = "zombie_resist";
             this.zombie_resist.Size = new System.Drawing.Size(92, 29);
             this.zombie_resist.TabIndex = 6;
+            this.zombie_resist.TabStop = false;
             this.zombie_resist.Value = new decimal(new int[] {
             10,
             0,
             0,
             0});
             this.zombie_resist.ValueChanged += new System.EventHandler(this.Zombie_resist_ValueChanged);
-            // 
-            // save_btn
-            // 
-            this.save_btn.AutoSize = true;
-            this.save_btn.ForeColor = System.Drawing.Color.White;
-            this.save_btn.Location = new System.Drawing.Point(430, 242);
-            this.save_btn.Name = "save_btn";
-            this.save_btn.Size = new System.Drawing.Size(103, 34);
-            this.save_btn.TabIndex = 10;
-            this.save_btn.Text = "Save";
-            this.save_btn.UseVisualStyleBackColor = false;
-            this.save_btn.Click += new System.EventHandler(this.Save_btn_Click);
             // 
             // resist_title
             // 
@@ -464,6 +475,7 @@
             this.zombie_hp.Name = "zombie_hp";
             this.zombie_hp.Size = new System.Drawing.Size(92, 29);
             this.zombie_hp.TabIndex = 4;
+            this.zombie_hp.TabStop = false;
             this.zombie_hp.Value = new decimal(new int[] {
             10,
             0,
@@ -505,14 +517,6 @@
             this.zombie_list.TabIndex = 1;
             this.zombie_list.TabStop = false;
             this.zombie_list.SelectedIndexChanged += new System.EventHandler(this.Zombie_list_SelectedIndexChanged);
-            // 
-            // saveDialog
-            // 
-            this.saveDialog.FileName = "entityclasses.xml";
-            this.saveDialog.Filter = "XML files (*.xml)|*.xml";
-            this.saveDialog.OverwritePrompt = false;
-            this.saveDialog.Title = "Select the file \"entityclasses.xml\" from the path \"7 Days To Die\\Data\\Config\"";
-            this.saveDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveDialog_FileOk);
             // 
             // MainForm
             // 
@@ -558,7 +562,6 @@
         private System.Windows.Forms.Label hp_default;
         private System.Windows.Forms.Label resist_default;
         private System.Windows.Forms.Button default_btn;
-        private System.Windows.Forms.Button save_btn;
         private System.Windows.Forms.Button apply_btn;
         private System.Windows.Forms.Button load_btn;
         private System.Windows.Forms.Label devolp;
@@ -577,7 +580,7 @@
         private System.Windows.Forms.Label max_resist_title;
         private System.Windows.Forms.Label min_resist_title;
         private System.Windows.Forms.Label resist_rand_title;
-        private System.Windows.Forms.SaveFileDialog saveDialog;
+        private System.Windows.Forms.Button backup_btn;
     }
 }
 

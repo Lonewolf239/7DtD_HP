@@ -173,6 +173,16 @@ namespace _7DtD_HP.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap feral {
+            get {
+                object obj = ResourceManager.GetObject("feral", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap janitor {
             get {
                 object obj = ResourceManager.GetObject("janitor", resourceCulture);
@@ -276,6 +286,16 @@ namespace _7DtD_HP.Properties {
         internal static System.Drawing.Bitmap party_girl {
             get {
                 object obj = ResourceManager.GetObject("party_girl", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap radiated {
+            get {
+                object obj = ResourceManager.GetObject("radiated", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

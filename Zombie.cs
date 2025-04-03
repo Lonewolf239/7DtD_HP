@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace _7DtD_HP.Classes
+namespace _7DtD_HP
 {
     public abstract class Zombie
     {
