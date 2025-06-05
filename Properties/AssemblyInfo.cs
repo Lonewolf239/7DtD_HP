@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Lonewolf239")]
 [assembly: AssemblyProduct("7DtD Zombie HP Changer")]
-[assembly: AssemblyCopyright("Lonewolf239 ©  2025")]
+[assembly: AssemblyCopyright("Lonewolf239 © 2025")]
 [assembly: AssemblyTrademark("7DtD Zombie HP Changer")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Номер сборки
 //      Редакция
 //
-[assembly: AssemblyVersion("0.2.0.0")]
-[assembly: AssemblyFileVersion("0.2.0.0")]
+[assembly: AssemblyVersion("0.2.1.0")]
+[assembly: AssemblyFileVersion("0.2.1.0")]

@@ -610,6 +610,7 @@ namespace _7DtD_HP
         {
             Type = ZombieType.Radiated;
             HasPhysicalDamageResist = false;
+            DefaultPhysicalDamageResist = PhysicalDamageResist = 0;
             HealthMaxLineIndex = 2095;
             DefaultHealthMax = HealthMax = 1100;
         }

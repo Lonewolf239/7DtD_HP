@@ -31,7 +31,14 @@ namespace _7DtD_HP
                                 MessageBoxIcon.Error);
                 return;
             }
-            if (!File.Exists(BECFile)) File.Copy(ECFile, BECFile);
+            if (!File.Exists(BECFile))
+            {
+                MessageBox.Show("The software is made and based on game version 1.4",
+                                "Software Version Information",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+                if (File.Exists(ECFile)) File.Copy(ECFile, BECFile);
+            }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());

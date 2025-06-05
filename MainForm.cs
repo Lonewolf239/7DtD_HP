@@ -9,12 +9,33 @@ using System.Text.RegularExpressions;
 
 namespace _7DtD_HP
 {
-    public partial class MainForm : Form
+    internal partial class MainForm : Form
     {
         private readonly Zombie[] Zombies;
         private Zombie Zombie => Zombies[zombie_list.SelectedIndex];
+        private bool CRShowMessage = false;
+
+        internal MainForm()
+        {
+            InitializeComponent();
+            new ToolTip().SetToolTip(resist_title, "PhysicalDamageResist");
+            Zombies = GetZombies();
+            zombie_list.Items.AddRange(Zombies);
+            zombie_list.SelectedIndex = 0;
+        }
 
         private void Devolp_MouseClick(object sender, MouseEventArgs e) { if (e.Button == MouseButtons.Left) Process.Start(new ProcessStartInfo("https://github.com/Lonewolf239") { UseShellExecute = true }); }
+
+        private void ChangeResist_CheckedChanged(object sender, EventArgs e)
+        {
+            zombie_panel.Focus();
+            changeResist.Text = changeResist.Checked ? "✔" : "✖";
+            if (changeResist.Checked && !CRShowMessage)
+            {
+                CRShowMessage = true;
+                MessageBox.Show("It is advised not to enable the change of this parameter as it may cause errors if the game version does not match.", "Warning: Parameter Change Advisory", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
 
         private static Zombie[] GetZombies()
         {
@@ -23,14 +44,6 @@ namespace _7DtD_HP
             var result = new List<Zombie>();
             foreach (var type in derivedTypes) result.Add((Zombie)Activator.CreateInstance(type));
             return result.ToArray();
-        }
-
-        public MainForm()
-        {
-            InitializeComponent();
-            Zombies = GetZombies();
-            zombie_list.Items.AddRange(Zombies);
-            zombie_list.SelectedIndex = 0;
         }
 
         private void Zombie_list_SelectedIndexChanged(object sender, EventArgs e) => UpdateInfo();
@@ -49,18 +62,17 @@ namespace _7DtD_HP
         {
             try
             {
-                string[] lines = File.ReadAllLines(Program.ECFile);
-                const string hpPattern = @"\d+";
-                const string resistPattern = @"\d+";
+                var lines = File.ReadAllLines(Program.ECFile);
+                const string pattern = @"\d+";
                 foreach (var zombie in Zombies)
                 {
                     var hp = lines[zombie.HealthMaxLineIndex - 1].Split('=')[3];
-                    Match match = Regex.Match(hp, hpPattern);
+                    Match match = Regex.Match(hp, pattern);
                     if (match.Success) zombie.HealthMax = int.Parse(match.Value);
                     if (zombie.HasPhysicalDamageResist)
                     {
                         var resist = lines[zombie.HealthMaxLineIndex - 1].Split('=')[3];
-                        match = Regex.Match(resist, resistPattern);
+                        match = Regex.Match(resist, pattern);
                         if (match.Success) zombie.PhysicalDamageResist = int.Parse(match.Value);
                     }
                 }
@@ -116,7 +128,7 @@ namespace _7DtD_HP
                 foreach (var zombie in Zombies)
                 {
                     lines[zombie.HealthMaxLineIndex - 1] = $"\t\t<passive_effect name=\"HealthMax\" operation=\"base_set\" value=\"{zombie.HealthMax}\"/>";
-                    if (zombie.HasPhysicalDamageResist) lines[zombie.PhysicalDamageResistLineIndex - 1] = $"\t\t<passive_effect name=\"PhysicalDamageResist\" operation=\"base_set\" value=\"{zombie.PhysicalDamageResist}\"/>";
+                    if (changeResist.Checked && zombie.HasPhysicalDamageResist) lines[zombie.PhysicalDamageResistLineIndex - 1] = $"\t\t<passive_effect name=\"PhysicalDamageResist\" operation=\"base_set\" value=\"{zombie.PhysicalDamageResist}\"/>";
                 }
                 File.WriteAllLines(Program.ECFile, lines);
             }
@@ -187,6 +199,83 @@ namespace _7DtD_HP
             }
             LoadConfig();
             UpdateInfo();
+        }
+
+        private void Content_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            string name = ((Control)sender).Name;
+            string message, title = "Hint about ";
+            if (name == "zombie_list")
+            {
+                message = "Select a zombie from the list.";
+                title += "Zombie Selection";
+            }
+            else if (name == "zombie_hp")
+            {
+                message = "Set the HP of the selected zombie.";
+                title += "Zombie HP Setting";
+            }
+            else if (name == "zombie_resist")
+            {
+                message = "Set the zombie's resistance to physical damage.";
+                title += "Zombie Resistance Setting";
+            }
+            else if (name == "changeResist")
+            {
+                message = "Enable or disable changing the zombie's resistance to physical damage (if disabled, this parameter will not change).";
+                title += "Change Resistance Toggle";
+            }
+            else if (name == "min_hp_value")
+            {
+                message = "Set the minimum threshold for the zombie HP randomizer.";
+                title += "Minimum HP Value";
+            }
+            else if (name == "max_hp_value")
+            {
+                message = "Set the maximum threshold for the zombie HP randomizer.";
+                title += "Maximum HP Value";
+            }
+            else if (name == "randHpBtn")
+            {
+                message = "Randomize the HP of all zombies within the specified limits.";
+                title += "Randomize HP";
+            }
+            else if (name == "min_resist_value")
+            {
+                message = "Set the minimum threshold for the resistance to physical damage randomizer for zombies.";
+                title += "Minimum Resistance Value";
+            }
+            else if (name == "max_resist_value")
+            {
+                message = "Set the maximum threshold for the resistance to physical damage randomizer for zombies.";
+                title += "Maximum Resistance Value";
+            }
+            else if (name == "randResistBtn")
+            {
+                message = "Randomize the resistance to physical damage of all zombies within the specified limits.";
+                title += "Randomize Resistance";
+            }
+            else if (name == "backupBtn")
+            {
+                message = "Restore the original configuration file.";
+                title += "Restore Configuration";
+            }
+            else if (name == "load_btn")
+            {
+                message = "Load data from the configuration file.";
+                title += "Load Configuration";
+            }
+            else if (name == "default_btn")
+            {
+                message = "Reset the set values to default.";
+                title += "Reset to Default";
+            }
+            else
+            {
+                message = "Apply the set values.";
+                title += "Apply Changes";
+            }
+            MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

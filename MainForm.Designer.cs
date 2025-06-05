@@ -31,21 +31,22 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.zombie_icon = new System.Windows.Forms.PictureBox();
             this.zombie_panel = new System.Windows.Forms.Panel();
-            this.backup_btn = new System.Windows.Forms.Button();
+            this.changeResist = new System.Windows.Forms.CheckBox();
+            this.backupBtn = new System.Windows.Forms.Button();
             this.resist_rand_box = new System.Windows.Forms.GroupBox();
-            this.rand_resist_btn = new System.Windows.Forms.Button();
+            this.randResistBtn = new System.Windows.Forms.Button();
             this.max_resist_value = new System.Windows.Forms.NumericUpDown();
             this.min_resist_value = new System.Windows.Forms.NumericUpDown();
-            this.max_resist_title = new System.Windows.Forms.Label();
-            this.min_resist_title = new System.Windows.Forms.Label();
-            this.resist_rand_title = new System.Windows.Forms.Label();
+            this.maxResistLbl = new System.Windows.Forms.Label();
+            this.minResistLbl = new System.Windows.Forms.Label();
+            this.resistRandLbl = new System.Windows.Forms.Label();
             this.hp_rand_box = new System.Windows.Forms.GroupBox();
-            this.rand_hp_btn = new System.Windows.Forms.Button();
+            this.randHpBtn = new System.Windows.Forms.Button();
             this.max_hp_value = new System.Windows.Forms.NumericUpDown();
             this.min_hp_value = new System.Windows.Forms.NumericUpDown();
-            this.max_hp_title = new System.Windows.Forms.Label();
-            this.min_hp_title = new System.Windows.Forms.Label();
-            this.hp_rand_title = new System.Windows.Forms.Label();
+            this.maxHpLbl = new System.Windows.Forms.Label();
+            this.minHpLbl = new System.Windows.Forms.Label();
+            this.hpRandLbl = new System.Windows.Forms.Label();
             this.version = new System.Windows.Forms.Label();
             this.devolp = new System.Windows.Forms.Label();
             this.resist_default = new System.Windows.Forms.Label();
@@ -56,8 +57,8 @@
             this.zombie_resist = new System.Windows.Forms.NumericUpDown();
             this.resist_title = new System.Windows.Forms.Label();
             this.zombie_hp = new System.Windows.Forms.NumericUpDown();
-            this.hp_title = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.hpTitle = new System.Windows.Forms.Label();
+            this.zombieListLbl = new System.Windows.Forms.Label();
             this.zombie_list = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.zombie_icon)).BeginInit();
             this.zombie_panel.SuspendLayout();
@@ -85,7 +86,8 @@
             // zombie_panel
             // 
             this.zombie_panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.zombie_panel.Controls.Add(this.backup_btn);
+            this.zombie_panel.Controls.Add(this.changeResist);
+            this.zombie_panel.Controls.Add(this.backupBtn);
             this.zombie_panel.Controls.Add(this.resist_rand_box);
             this.zombie_panel.Controls.Add(this.hp_rand_box);
             this.zombie_panel.Controls.Add(this.version);
@@ -98,8 +100,8 @@
             this.zombie_panel.Controls.Add(this.zombie_resist);
             this.zombie_panel.Controls.Add(this.resist_title);
             this.zombie_panel.Controls.Add(this.zombie_hp);
-            this.zombie_panel.Controls.Add(this.hp_title);
-            this.zombie_panel.Controls.Add(this.label1);
+            this.zombie_panel.Controls.Add(this.hpTitle);
+            this.zombie_panel.Controls.Add(this.zombieListLbl);
             this.zombie_panel.Controls.Add(this.zombie_list);
             this.zombie_panel.Controls.Add(this.zombie_icon);
             this.zombie_panel.Location = new System.Drawing.Point(12, 12);
@@ -107,46 +109,63 @@
             this.zombie_panel.Size = new System.Drawing.Size(666, 299);
             this.zombie_panel.TabIndex = 1;
             // 
-            // backup_btn
+            // changeResist
             // 
-            this.backup_btn.AutoSize = true;
-            this.backup_btn.ForeColor = System.Drawing.Color.White;
-            this.backup_btn.Location = new System.Drawing.Point(212, 242);
-            this.backup_btn.Name = "backup_btn";
-            this.backup_btn.Size = new System.Drawing.Size(103, 34);
-            this.backup_btn.TabIndex = 18;
-            this.backup_btn.TabStop = false;
-            this.backup_btn.Text = "Backup";
-            this.backup_btn.UseVisualStyleBackColor = false;
-            this.backup_btn.Click += new System.EventHandler(this.Backup_btn_Click);
+            this.changeResist.Appearance = System.Windows.Forms.Appearance.Button;
+            this.changeResist.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.changeResist.Location = new System.Drawing.Point(213, 89);
+            this.changeResist.Name = "changeResist";
+            this.changeResist.Size = new System.Drawing.Size(29, 29);
+            this.changeResist.TabIndex = 2;
+            this.changeResist.TabStop = false;
+            this.changeResist.Text = "✖";
+            this.changeResist.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.changeResist.UseVisualStyleBackColor = false;
+            this.changeResist.CheckedChanged += new System.EventHandler(this.ChangeResist_CheckedChanged);
+            this.changeResist.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.Content_HelpRequested);
+            // 
+            // backupBtn
+            // 
+            this.backupBtn.AutoSize = true;
+            this.backupBtn.ForeColor = System.Drawing.Color.White;
+            this.backupBtn.Location = new System.Drawing.Point(212, 242);
+            this.backupBtn.Name = "backupBtn";
+            this.backupBtn.Size = new System.Drawing.Size(103, 34);
+            this.backupBtn.TabIndex = 18;
+            this.backupBtn.TabStop = false;
+            this.backupBtn.Text = "Backup";
+            this.backupBtn.UseVisualStyleBackColor = false;
+            this.backupBtn.Click += new System.EventHandler(this.Backup_btn_Click);
+            this.backupBtn.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.Content_HelpRequested);
             // 
             // resist_rand_box
             // 
-            this.resist_rand_box.Controls.Add(this.rand_resist_btn);
+            this.resist_rand_box.Controls.Add(this.randResistBtn);
             this.resist_rand_box.Controls.Add(this.max_resist_value);
             this.resist_rand_box.Controls.Add(this.min_resist_value);
-            this.resist_rand_box.Controls.Add(this.max_resist_title);
-            this.resist_rand_box.Controls.Add(this.min_resist_title);
-            this.resist_rand_box.Controls.Add(this.resist_rand_title);
+            this.resist_rand_box.Controls.Add(this.maxResistLbl);
+            this.resist_rand_box.Controls.Add(this.minResistLbl);
+            this.resist_rand_box.Controls.Add(this.resistRandLbl);
             this.resist_rand_box.Location = new System.Drawing.Point(431, 134);
             this.resist_rand_box.Name = "resist_rand_box";
             this.resist_rand_box.Size = new System.Drawing.Size(211, 102);
             this.resist_rand_box.TabIndex = 17;
             this.resist_rand_box.TabStop = false;
             // 
-            // rand_resist_btn
+            // randResistBtn
             // 
-            this.rand_resist_btn.AutoSize = true;
-            this.rand_resist_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rand_resist_btn.ForeColor = System.Drawing.Color.White;
-            this.rand_resist_btn.Location = new System.Drawing.Point(106, 62);
-            this.rand_resist_btn.Name = "rand_resist_btn";
-            this.rand_resist_btn.Size = new System.Drawing.Size(100, 34);
-            this.rand_resist_btn.TabIndex = 20;
-            this.rand_resist_btn.TabStop = false;
-            this.rand_resist_btn.Text = "Randomize";
-            this.rand_resist_btn.UseVisualStyleBackColor = false;
-            this.rand_resist_btn.Click += new System.EventHandler(this.Rand_resist_btn_Click);
+            this.randResistBtn.AutoSize = true;
+            this.randResistBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.randResistBtn.ForeColor = System.Drawing.Color.White;
+            this.randResistBtn.Location = new System.Drawing.Point(106, 62);
+            this.randResistBtn.Name = "randResistBtn";
+            this.randResistBtn.Size = new System.Drawing.Size(100, 34);
+            this.randResistBtn.TabIndex = 20;
+            this.randResistBtn.TabStop = false;
+            this.randResistBtn.Text = "Randomize";
+            this.randResistBtn.UseVisualStyleBackColor = false;
+            this.randResistBtn.Click += new System.EventHandler(this.Rand_resist_btn_Click);
+            this.randResistBtn.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.Content_HelpRequested);
             // 
             // max_resist_value
             // 
@@ -168,6 +187,7 @@
             0,
             0,
             0});
+            this.max_resist_value.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.Content_HelpRequested);
             // 
             // min_resist_value
             // 
@@ -184,70 +204,72 @@
             this.min_resist_value.Size = new System.Drawing.Size(51, 22);
             this.min_resist_value.TabIndex = 18;
             this.min_resist_value.TabStop = false;
+            this.min_resist_value.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.Content_HelpRequested);
             // 
-            // max_resist_title
+            // maxResistLbl
             // 
-            this.max_resist_title.AutoSize = true;
-            this.max_resist_title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.max_resist_title.ForeColor = System.Drawing.Color.White;
-            this.max_resist_title.Location = new System.Drawing.Point(107, 33);
-            this.max_resist_title.Name = "max_resist_title";
-            this.max_resist_title.Size = new System.Drawing.Size(42, 20);
-            this.max_resist_title.TabIndex = 17;
-            this.max_resist_title.Text = "max:";
-            this.max_resist_title.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.maxResistLbl.AutoSize = true;
+            this.maxResistLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.maxResistLbl.ForeColor = System.Drawing.Color.White;
+            this.maxResistLbl.Location = new System.Drawing.Point(107, 33);
+            this.maxResistLbl.Name = "maxResistLbl";
+            this.maxResistLbl.Size = new System.Drawing.Size(42, 20);
+            this.maxResistLbl.TabIndex = 17;
+            this.maxResistLbl.Text = "max:";
+            this.maxResistLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // min_resist_title
+            // minResistLbl
             // 
-            this.min_resist_title.AutoSize = true;
-            this.min_resist_title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.min_resist_title.ForeColor = System.Drawing.Color.White;
-            this.min_resist_title.Location = new System.Drawing.Point(6, 33);
-            this.min_resist_title.Name = "min_resist_title";
-            this.min_resist_title.Size = new System.Drawing.Size(38, 20);
-            this.min_resist_title.TabIndex = 16;
-            this.min_resist_title.Text = "min:";
-            this.min_resist_title.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.minResistLbl.AutoSize = true;
+            this.minResistLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.minResistLbl.ForeColor = System.Drawing.Color.White;
+            this.minResistLbl.Location = new System.Drawing.Point(6, 33);
+            this.minResistLbl.Name = "minResistLbl";
+            this.minResistLbl.Size = new System.Drawing.Size(38, 20);
+            this.minResistLbl.TabIndex = 16;
+            this.minResistLbl.Text = "min:";
+            this.minResistLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // resist_rand_title
+            // resistRandLbl
             // 
-            this.resist_rand_title.AutoSize = true;
-            this.resist_rand_title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.resist_rand_title.ForeColor = System.Drawing.Color.White;
-            this.resist_rand_title.Location = new System.Drawing.Point(6, 0);
-            this.resist_rand_title.Name = "resist_rand_title";
-            this.resist_rand_title.Size = new System.Drawing.Size(145, 20);
-            this.resist_rand_title.TabIndex = 15;
-            this.resist_rand_title.Text = "Random PDResist:";
-            this.resist_rand_title.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.resistRandLbl.AutoSize = true;
+            this.resistRandLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.resistRandLbl.ForeColor = System.Drawing.Color.White;
+            this.resistRandLbl.Location = new System.Drawing.Point(6, 0);
+            this.resistRandLbl.Name = "resistRandLbl";
+            this.resistRandLbl.Size = new System.Drawing.Size(145, 20);
+            this.resistRandLbl.TabIndex = 15;
+            this.resistRandLbl.Text = "Random PDResist:";
+            this.resistRandLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // hp_rand_box
             // 
-            this.hp_rand_box.Controls.Add(this.rand_hp_btn);
+            this.hp_rand_box.Controls.Add(this.randHpBtn);
             this.hp_rand_box.Controls.Add(this.max_hp_value);
             this.hp_rand_box.Controls.Add(this.min_hp_value);
-            this.hp_rand_box.Controls.Add(this.max_hp_title);
-            this.hp_rand_box.Controls.Add(this.min_hp_title);
-            this.hp_rand_box.Controls.Add(this.hp_rand_title);
+            this.hp_rand_box.Controls.Add(this.maxHpLbl);
+            this.hp_rand_box.Controls.Add(this.minHpLbl);
+            this.hp_rand_box.Controls.Add(this.hpRandLbl);
             this.hp_rand_box.Location = new System.Drawing.Point(212, 134);
             this.hp_rand_box.Name = "hp_rand_box";
             this.hp_rand_box.Size = new System.Drawing.Size(212, 102);
             this.hp_rand_box.TabIndex = 16;
             this.hp_rand_box.TabStop = false;
             // 
-            // rand_hp_btn
+            // randHpBtn
             // 
-            this.rand_hp_btn.AutoSize = true;
-            this.rand_hp_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rand_hp_btn.ForeColor = System.Drawing.Color.White;
-            this.rand_hp_btn.Location = new System.Drawing.Point(106, 62);
-            this.rand_hp_btn.Name = "rand_hp_btn";
-            this.rand_hp_btn.Size = new System.Drawing.Size(100, 34);
-            this.rand_hp_btn.TabIndex = 20;
-            this.rand_hp_btn.TabStop = false;
-            this.rand_hp_btn.Text = "Randomize";
-            this.rand_hp_btn.UseVisualStyleBackColor = false;
-            this.rand_hp_btn.Click += new System.EventHandler(this.Rand_hp_btn_Click);
+            this.randHpBtn.AutoSize = true;
+            this.randHpBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.randHpBtn.ForeColor = System.Drawing.Color.White;
+            this.randHpBtn.Location = new System.Drawing.Point(106, 62);
+            this.randHpBtn.Name = "randHpBtn";
+            this.randHpBtn.Size = new System.Drawing.Size(100, 34);
+            this.randHpBtn.TabIndex = 20;
+            this.randHpBtn.TabStop = false;
+            this.randHpBtn.Text = "Randomize";
+            this.randHpBtn.UseVisualStyleBackColor = false;
+            this.randHpBtn.Click += new System.EventHandler(this.Rand_hp_btn_Click);
+            this.randHpBtn.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.Content_HelpRequested);
             // 
             // max_hp_value
             // 
@@ -274,6 +296,7 @@
             0,
             0,
             0});
+            this.max_hp_value.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.Content_HelpRequested);
             // 
             // min_hp_value
             // 
@@ -300,42 +323,43 @@
             0,
             0,
             0});
+            this.min_hp_value.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.Content_HelpRequested);
             // 
-            // max_hp_title
+            // maxHpLbl
             // 
-            this.max_hp_title.AutoSize = true;
-            this.max_hp_title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.max_hp_title.ForeColor = System.Drawing.Color.White;
-            this.max_hp_title.Location = new System.Drawing.Point(107, 33);
-            this.max_hp_title.Name = "max_hp_title";
-            this.max_hp_title.Size = new System.Drawing.Size(42, 20);
-            this.max_hp_title.TabIndex = 17;
-            this.max_hp_title.Text = "max:";
-            this.max_hp_title.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.maxHpLbl.AutoSize = true;
+            this.maxHpLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.maxHpLbl.ForeColor = System.Drawing.Color.White;
+            this.maxHpLbl.Location = new System.Drawing.Point(107, 33);
+            this.maxHpLbl.Name = "maxHpLbl";
+            this.maxHpLbl.Size = new System.Drawing.Size(42, 20);
+            this.maxHpLbl.TabIndex = 17;
+            this.maxHpLbl.Text = "max:";
+            this.maxHpLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // min_hp_title
+            // minHpLbl
             // 
-            this.min_hp_title.AutoSize = true;
-            this.min_hp_title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.min_hp_title.ForeColor = System.Drawing.Color.White;
-            this.min_hp_title.Location = new System.Drawing.Point(6, 33);
-            this.min_hp_title.Name = "min_hp_title";
-            this.min_hp_title.Size = new System.Drawing.Size(38, 20);
-            this.min_hp_title.TabIndex = 16;
-            this.min_hp_title.Text = "min:";
-            this.min_hp_title.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.minHpLbl.AutoSize = true;
+            this.minHpLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.minHpLbl.ForeColor = System.Drawing.Color.White;
+            this.minHpLbl.Location = new System.Drawing.Point(6, 33);
+            this.minHpLbl.Name = "minHpLbl";
+            this.minHpLbl.Size = new System.Drawing.Size(38, 20);
+            this.minHpLbl.TabIndex = 16;
+            this.minHpLbl.Text = "min:";
+            this.minHpLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // hp_rand_title
+            // hpRandLbl
             // 
-            this.hp_rand_title.AutoSize = true;
-            this.hp_rand_title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.hp_rand_title.ForeColor = System.Drawing.Color.White;
-            this.hp_rand_title.Location = new System.Drawing.Point(6, 0);
-            this.hp_rand_title.Name = "hp_rand_title";
-            this.hp_rand_title.Size = new System.Drawing.Size(154, 20);
-            this.hp_rand_title.TabIndex = 15;
-            this.hp_rand_title.Text = "Random HealthMax:";
-            this.hp_rand_title.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.hpRandLbl.AutoSize = true;
+            this.hpRandLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.hpRandLbl.ForeColor = System.Drawing.Color.White;
+            this.hpRandLbl.Location = new System.Drawing.Point(6, 0);
+            this.hpRandLbl.Name = "hpRandLbl";
+            this.hpRandLbl.Size = new System.Drawing.Size(154, 20);
+            this.hpRandLbl.TabIndex = 15;
+            this.hpRandLbl.Text = "Random HealthMax:";
+            this.hpRandLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // version
             // 
@@ -343,11 +367,11 @@
             this.version.Cursor = System.Windows.Forms.Cursors.Default;
             this.version.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.version.ForeColor = System.Drawing.Color.White;
-            this.version.Location = new System.Drawing.Point(630, 279);
+            this.version.Location = new System.Drawing.Point(624, 279);
             this.version.Name = "version";
-            this.version.Size = new System.Drawing.Size(31, 16);
+            this.version.Size = new System.Drawing.Size(41, 16);
             this.version.TabIndex = 14;
-            this.version.Text = "v0.2";
+            this.version.Text = "v0.2.1";
             this.version.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // devolp
@@ -387,6 +411,7 @@
             this.load_btn.Text = "Load";
             this.load_btn.UseVisualStyleBackColor = false;
             this.load_btn.Click += new System.EventHandler(this.Load_btn_Click);
+            this.load_btn.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.Content_HelpRequested);
             // 
             // hp_default
             // 
@@ -411,6 +436,7 @@
             this.apply_btn.Text = "Apply";
             this.apply_btn.UseVisualStyleBackColor = false;
             this.apply_btn.Click += new System.EventHandler(this.Apply_btn_Click);
+            this.apply_btn.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.Content_HelpRequested);
             // 
             // default_btn
             // 
@@ -424,6 +450,7 @@
             this.default_btn.Text = "To default";
             this.default_btn.UseVisualStyleBackColor = false;
             this.default_btn.Click += new System.EventHandler(this.Default_btn_Click);
+            this.default_btn.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.Content_HelpRequested);
             // 
             // zombie_resist
             // 
@@ -445,16 +472,17 @@
             0,
             0});
             this.zombie_resist.ValueChanged += new System.EventHandler(this.Zombie_resist_ValueChanged);
+            this.zombie_resist.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.Content_HelpRequested);
             // 
             // resist_title
             // 
             this.resist_title.AutoSize = true;
             this.resist_title.ForeColor = System.Drawing.Color.White;
-            this.resist_title.Location = new System.Drawing.Point(209, 91);
+            this.resist_title.Location = new System.Drawing.Point(248, 91);
             this.resist_title.Name = "resist_title";
-            this.resist_title.Size = new System.Drawing.Size(205, 24);
+            this.resist_title.Size = new System.Drawing.Size(90, 24);
             this.resist_title.TabIndex = 5;
-            this.resist_title.Text = "PhysicalDamageResist:";
+            this.resist_title.Text = "PDResist:";
             this.resist_title.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // zombie_hp
@@ -482,28 +510,29 @@
             0,
             0});
             this.zombie_hp.ValueChanged += new System.EventHandler(this.Zombie_hp_ValueChanged);
+            this.zombie_hp.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.Content_HelpRequested);
             // 
-            // hp_title
+            // hpTitle
             // 
-            this.hp_title.AutoSize = true;
-            this.hp_title.ForeColor = System.Drawing.Color.White;
-            this.hp_title.Location = new System.Drawing.Point(209, 56);
-            this.hp_title.Name = "hp_title";
-            this.hp_title.Size = new System.Drawing.Size(105, 24);
-            this.hp_title.TabIndex = 3;
-            this.hp_title.Text = "HealthMax:";
-            this.hp_title.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.hpTitle.AutoSize = true;
+            this.hpTitle.ForeColor = System.Drawing.Color.White;
+            this.hpTitle.Location = new System.Drawing.Point(209, 56);
+            this.hpTitle.Name = "hpTitle";
+            this.hpTitle.Size = new System.Drawing.Size(105, 24);
+            this.hpTitle.TabIndex = 3;
+            this.hpTitle.Text = "HealthMax:";
+            this.hpTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label1
+            // zombieListLbl
             // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(209, 6);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 24);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Zombie:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.zombieListLbl.AutoSize = true;
+            this.zombieListLbl.ForeColor = System.Drawing.Color.White;
+            this.zombieListLbl.Location = new System.Drawing.Point(209, 6);
+            this.zombieListLbl.Name = "zombieListLbl";
+            this.zombieListLbl.Size = new System.Drawing.Size(80, 24);
+            this.zombieListLbl.TabIndex = 2;
+            this.zombieListLbl.Text = "Zombie:";
+            this.zombieListLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // zombie_list
             // 
@@ -517,6 +546,7 @@
             this.zombie_list.TabIndex = 1;
             this.zombie_list.TabStop = false;
             this.zombie_list.SelectedIndexChanged += new System.EventHandler(this.Zombie_list_SelectedIndexChanged);
+            this.zombie_list.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.Content_HelpRequested);
             // 
             // MainForm
             // 
@@ -527,8 +557,10 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "7DtD Zombie HP Changer";
@@ -553,10 +585,10 @@
 
         private System.Windows.Forms.PictureBox zombie_icon;
         private System.Windows.Forms.Panel zombie_panel;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label zombieListLbl;
         private System.Windows.Forms.ComboBox zombie_list;
         private System.Windows.Forms.NumericUpDown zombie_hp;
-        private System.Windows.Forms.Label hp_title;
+        private System.Windows.Forms.Label hpTitle;
         private System.Windows.Forms.NumericUpDown zombie_resist;
         private System.Windows.Forms.Label resist_title;
         private System.Windows.Forms.Label hp_default;
@@ -567,20 +599,21 @@
         private System.Windows.Forms.Label devolp;
         private System.Windows.Forms.Label version;
         private System.Windows.Forms.GroupBox hp_rand_box;
-        private System.Windows.Forms.Label min_hp_title;
-        private System.Windows.Forms.Label hp_rand_title;
-        private System.Windows.Forms.Button rand_hp_btn;
+        private System.Windows.Forms.Label minHpLbl;
+        private System.Windows.Forms.Label hpRandLbl;
+        private System.Windows.Forms.Button randHpBtn;
         private System.Windows.Forms.NumericUpDown max_hp_value;
         private System.Windows.Forms.NumericUpDown min_hp_value;
-        private System.Windows.Forms.Label max_hp_title;
+        private System.Windows.Forms.Label maxHpLbl;
         private System.Windows.Forms.GroupBox resist_rand_box;
-        private System.Windows.Forms.Button rand_resist_btn;
+        private System.Windows.Forms.Button randResistBtn;
         private System.Windows.Forms.NumericUpDown max_resist_value;
         private System.Windows.Forms.NumericUpDown min_resist_value;
-        private System.Windows.Forms.Label max_resist_title;
-        private System.Windows.Forms.Label min_resist_title;
-        private System.Windows.Forms.Label resist_rand_title;
-        private System.Windows.Forms.Button backup_btn;
+        private System.Windows.Forms.Label maxResistLbl;
+        private System.Windows.Forms.Label minResistLbl;
+        private System.Windows.Forms.Label resistRandLbl;
+        private System.Windows.Forms.Button backupBtn;
+        private System.Windows.Forms.CheckBox changeResist;
     }
 }
 
