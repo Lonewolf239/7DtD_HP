@@ -56,3 +56,6 @@ This project is distributed under the MIT License. See the [LICENSE](LICENSE) fi
 - NeoIni - A library for working with INI files in .NET
   - Github: https://github.com/Lonewolf239/NeoIni
   - NuGet: https://www.nuget.org/packages/NeoIni
+- BeautifulConsole - A powerful .NET library for building beautiful console applications with true‑color support, cross‑platform clipboard, advanced window customization, and a clean, black‑box API.
+  - GitHub: https://github.com/Lonewolf239/BeautifulConsole
+  - NuGet: https://www.nuget.org/packages/BeautifulConsole
