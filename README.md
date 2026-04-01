@@ -53,7 +53,7 @@ This project is distributed under the MIT License. See the [LICENSE](LICENSE) fi
 
 ## See also
 
-- NeoIni - A library for working with INI files in .NET
+- NeoIni - A fully-featured C# library for working with INI files that provides secure, thread-safe read/write configuration with built-in integrity checking (checksum) and optional AES encryption.
   - Github: https://github.com/Lonewolf239/NeoIni
   - NuGet: https://www.nuget.org/packages/NeoIni
 - BeautifulConsole - A powerful .NET library for building beautiful console applications with true‑color support, cross‑platform clipboard, advanced window customization, and a clean, black‑box API.
