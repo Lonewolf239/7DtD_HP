@@ -53,4 +53,6 @@ This project is distributed under the MIT License. See the [LICENSE](LICENSE) fi
 
 ## See also
 
-- [NeoIni](https://github.com/Lonewolf239/NeoIni) - A library for working with INI files in .NET
+- NeoIni - A library for working with INI files in .NET
+  - Github: https://github.com/Lonewolf239/NeoIni
+  - NuGet: https://www.nuget.org/packages/NeoIni
